@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#7952b3">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/resource/home/home.css">
+    <link rel="apple-touch-icon" href="https://getbootstrap.com/docs/5.1/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://getbootstrap.com/docs/5.1/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://getbootstrap.com/docs/5.1/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="https://getbootstrap.com/docs/5.1/assets/img/favicons/manifest.json">
+    <link rel="mask-icon" href="https://getbootstrap.com/docs/5.1/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
+    <link rel="icon" href="https://getbootstrap.com/docs/5.1/assets/img/favicons/favicon.ico">
+
+    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.datatables.net/rss.xml">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="/media/js/site.js?_=64232ba754b2748258f2324e5f9e21f9"></script>
+    <script type="text/javascript" src="/media/js/dynamic.php?comments-page=examples%2Fbasic_init%2Ftable_sorting.html" async></script>
+    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="/resource/home/home.js"></script>
+
+    <title>Home Panel</title>
+</head>
+
+<body>
+
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="bootstrap" viewBox="0 0 118 94">
+        <title>Sidebar bootstrap settings</title>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z"></path>
+    </symbol>
+    <symbol id="home" viewBox="0 0 16 16">
+        <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"></path>
+    </symbol>
+    <symbol id="grid" viewBox="0 0 16 16">
+        <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"></path>
+    </symbol>
+    <symbol id="add-dep" viewBox="0 0 16 16">
+        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+    </symbol>
+    <symbol id="template" viewBox="0 0 16 16">
+        <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/>
+    </symbol>
+</svg>
+<div style="background-color: rgba(34, 0, 157, 0.55); height: 10px;"></div>
+<main>
+    <h1 class="visually-hidden">Sidebar</h1>
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
+        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-microsoft" viewBox="0 0 25 15">
+                <path d="M7.462 0H0v7.19h7.462V0zM16 0H8.538v7.19H16V0zM7.462 8.211H0V16h7.462V8.211zm8.538 0H8.538V16H16V8.211z"/>
+            </svg>
+            <span class="fs-4">Меню</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li>
+                <form th:action="@{/home/all-departments}" method="post">
+                    <input type="hidden" name="nickname" th:value="${nickname}">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                    <button class="btn btn-outline-light btn-floating m-1" style="width: 200px" type="submit">Усі відділи</button>
+                </form>
+            </li>
+            <li th:each="department : ${departmentList}">
+                <!--                <a th:utext="${department.getName()}" class="btn btn-outline-light btn-floating m-1" style="width: 200px" th:href="@{/home/{name}(name=${department.getWebsiteName()})}" role="button"></a>-->
+                <form th:action="@{/home/some-department}" method="post">
+                    <input type="hidden" name="nickname" th:value="${nickname}">
+                    <input type="hidden" name="departmentName" th:value="${department.getName()}">
+                    <input type="hidden" name="departmentId" th:value="${department.getId()}">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+                    <button th:utext="${department.getName()}" class="btn btn-outline-light btn-floating m-1" style="width: 200px" type="submit">Усі відділи</button>
+                </form>
+            </li>
+            <li>
+                <form th:action="@{/create-department}" method="post">
+                    <input type="hidden" name="nickname" th:value="${nickname}">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#add-dep"></use></svg>
+                    <button class="btn btn-outline-light btn-floating m-1" style="width: 200px" type="submit">Додати відділ</button>
+                </form>
+            </li>
+        </ul>
+        <hr>
+        <li>
+            <form th:action="@{/home/templates}" method="post">
+                <input type="hidden" name="nickname" th:value="${nickname}">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#template"></use></svg>
+                <button class="btn btn-outline-light btn-floating m-1" style="width: 200px" type="submit">Управління шаблонами з найму робітників</button>
+            </form>
+        </li>
+        <hr>
+        <div class="dropup">
+            <img src="/resource/home/userIcon.png" alt="" width="32" height="32" class="rounded-circle me-2">
+            <button th:class="dropbtn" th:text="${nickname}"></button>
+            <div class="dropup-content">
+                <a href="https://music.youtube.com/">Youtube Music</a>
+                <a href="/">Налаштування акаунту</a>
+                <a href="/login">Вийти з системи  </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex flex-column flex-shrink-0 p-3" style="width: 5px; background-color: rgba(34, 0, 157, 0.55);"></div>
+    <!-- ********************************************************************************* -->
+    <!-- ********************************************************************************* -->
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-dark border border-dark" style="width: 100%;">
+        <div style="width: 100%; background-color: slateblue; border-radius: 5px; border-color: black; word-break: break-all;"><h1 style="padding: 10px" th:text="${title}"></h1></div>
+        <table id="employees-table" class="table table-striped table-bordered table-sm dataTable" cellspacing="0" role="grid" >
+            <thead>
+            <tr>
+                <th class="th-sm" scope="col">№</th>
+                <th class="th-sm" scope="col">Фамілія</th>
+                <th class="th-sm" scope="col">Ім'я</th>
+                <th class="th-sm" scope="col">Побатькові</th>
+                <th class="th-sm" scope="col">День народження</th>
+                <th class="th-sm" scope="col">Стать</th>
+                <th class="th-sm" scope="col">Посада</th>
+                <th class="th-sm" scope="col">Змінення</th>
+                <th class="th-sm" scope="col">Змінення</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="employee : ${employeeList}">
+                <td th:utext="${employee.getId()}"></td>
+                <td th:utext="${employee.getsName()}"></td>
+                <td th:utext="${employee.getfName()}"></td>
+                <td th:utext="${employee.gettName()}"></td>
+                <td th:utext="${employee.getBirthday()}"></td>
+                <td th:utext="${employee.getSex()}"></td>
+                <td th:utext="${employee.getPosition()}"></td>
+                <td>
+                    <form th:action="@{/edit-employee/{id}(id=${employee.getId()})}" method="post">
+                        <input type="hidden" name="nickname" th:value="${nickname}">
+                        <input type="hidden" name="employeeId" th:value="${employee.id}">
+                        <button type="submit" class="btn btn-secondary">Змінити</button>
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/delete-employee/{id}(id=${employee.getId()})}" method="post">
+                        <input type="hidden" name="nickname" th:value="${nickname}">
+                        <input type="hidden" name="employeeId" th:value="${employee.id}">
+                        <button type="submit" class="btn btn-danger">Видалити</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <hr/>
+        <form action="/create-employee" method="post">
+            <input type="hidden" name="nickname" th:value="${nickname}">
+            <button type="submit" class="btn btn-success" style="width: 100%">Створити нового працівника</button>
+        </form>
+    </div>
+    <!-- ********************************************************************************* -->
+    <!-- ********************************************************************************* -->
+</main>
+<div style="background-color: rgba(34, 0, 157, 0.55); height: 10px;"></div>
+</body>
+
+<footer class="bg-dark text-center text-white">
+    <!-- Grid container -->
+    <div class="container p-4 pb-0">
+        <!-- Section: Social media -->
+        <section class="mb-4">
+            <!-- Facebook -->
+            <a class="btn btn-outline-light btn-floating m-1" href="https://kiyavia.com/ru/aeroporty/zhulyany" role="button"><i>Головний сайт</i></a>
+            <!-- Google -->
+            <a class="btn btn-outline-light btn-floating m-1" href="https://www.google.com/" role="button"><i>Google пошук</i></a>
+            <!-- Telegram -->
+            <a class="btn btn-outline-light btn-floating m-1" href="tg://resolve?domain=@AviaTabloBot" role="button"><i>Telegram додаток</i></a>
+            <!-- Instagram -->
+            <a class="btn btn-outline-light btn-floating m-1" href="https://www.ukr.net/" role="button"><i>Ukr.net пошта</i></a>
+        </section>
+    </div>
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">© 2022 Copyright:
+        <a class="text-white" href="https://kiyavia.com/ru/aeroporty/zhulyany">Kiyavia.com</a>
+    </div>
+</footer>
+</html>

@@ -1,0 +1,29 @@
+body {
+    background: black;
+
+}
+.container-logo {
+    background: rgba(255, 252, 34, 0.58);
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.container-btnEnter {
+    background: rgba(255, 252, 34, 0.58);
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.div-footer{
+    background: rgba(255, 252, 34, 0.58);
+}
+.row{
+    padding-top: 20px;
+    background: rgba(0, 0, 0, 0);
+}
+.col-lg-4{
+    border-radius: 20px;
+    background: rgba(249, 249, 249, 0.87);
+
+}
+#button-login{
+
+}

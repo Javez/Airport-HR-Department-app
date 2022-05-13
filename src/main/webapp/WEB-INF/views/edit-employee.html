@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#7952b3">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link href="/resource/create/create-employee.css" rel="stylesheet" type="text/css">
+  <title>Edit Employee</title>
+</head>
+
+<body>
+<div class="head-h"><h3>Змінення інформації про робітника</h3></div>
+<main>
+  <h1 class="visually-hidden">Sidebar</h1>
+  <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
+    <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-microsoft" viewBox="0 0 25 15">
+        <path d="M7.462 0H0v7.19h7.462V0zM16 0H8.538v7.19H16V0zM7.462 8.211H0V16h7.462V8.211zm8.538 0H8.538V16H16V8.211z"/>
+      </svg>
+      <span class="fs-4">Відділи</span>
+    </a>
+    <table style="text-align: center;">
+      <tr>
+        <th>Номер</th>
+        <th>Назва</th>
+      </tr>
+      <tr th:each="department : ${departmentList}">
+        <td th:utext="${department.id}" style="width: 5px"></td>
+        <td th:utext="${department.name}"></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="d-flex flex-column flex-shrink-0 p-3" style="width: 5px; background-color: #198754;"></div>
+  <div class="div-form-block">
+    <form class="form-create-employee" th:method="POST" th:action="@{/edit-employee-confirm/{id}(id=${employeeId})}" th:object="${employee}">
+
+      <input type="hidden" name="nickname" th:value="${nickname}">
+      <input type="hidden" name="employeeId" th:value="${employeeId}">
+      <input type="hidden" name="employeeId" th:value="${oldDepId}">
+      <div class="form-row">
+        <div class="col-md mb-3">
+          <label for="createRecordDate">Дата створення запису</label>
+          <input name="createRecordDate" type="text" class="form-control" th:field="*{createRecordDate}" id="createRecordDate" placeholder="2222-11-22 рік-місяць-день"/>
+          <!--            <div style="color:red" th:if="${#fields.hasErrors('createRecordDate')}" th:errors="*{createRecordDate}">Error createRecord</div>-->
+        </div>
+        <div class="col-md mb-3">
+          <label for="sName">Фамілія</label>
+          <input type="text" class="form-control" th:field="*{sName}" id="sName" placeholder="Іванов"/>
+        </div>
+        <div class="col-md mb-3">
+          <label for="fName">Ім'я</label>
+          <input name="fName" type="text" class="form-control" th:field="*{fName}" id="fName" placeholder="Іван"/>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-md mb-3">
+          <label for="tName">Побатькові </label>
+          <input name="tName" type="text" class="form-control" th:field="*{tName}" id="tName" placeholder="Іванович"/>
+        </div>
+        <div class="col-md mb-3">
+          <label for="departmentId">Відділ</label>
+          <input name="departmentId" type="number" class="form-control" id="departmentId" placeholder="Номер відділу"/>
+        </div>
+        <div class="col-md mb-3">
+          <label for="identityNumber">Ідентифікаційний номер</label>
+          <input name="identityNumber" type="text" class="form-control" value=" " th:field="*{identityNumber}" id="identityNumber" placeholder="1234567890"/>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-md mb-3">
+          <label for="passportNumb">Номер паспорту</label>
+          <input name="passportNumb" type="text" class="form-control" th:field="*{passportNumb}" id="passportNumb" placeholder="ЕЕ000000 або 000652786"/>
+        </div>
+        <div class="col-md mb-3">
+          <label>Стать людини</label>
+          <br>
+          <select class="form-select" th:field="*{sex}">
+            <option value="Чоловік">Чоловік</option>
+            <option value="Жінка">Жінка</option>
+          </select>
+        </div>
+        <div class="col-md mb-3">
+          <label for="birthday">Дата народження</label>
+          <input name="birthday" type="text" class="form-control" th:field="*{birthday}" id="birthday" placeholder="2222-11-22 рік-місяць-день" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-md mb-3">
+          <label for="country">Національність</label>
+          <input name="country" type="text" class="form-control" th:field="*{country}" id="country" placeholder="Країна"/>
+        </div>
+        <div class="col-md mb-3">
+          <label for="universityName">Назва університету</label>
+          <input name="universityName" type="text" class="form-control" th:field="*{universityName}" id="universityName" placeholder="Назва університету"/>
+        </div>
+        <div class="col-md mb-3">
+          <label for="diplomNumb">Номер диплому</label>
+          <input name="diplomNumb" type="text" class="form-control" th:field="*{diplomNumb}" id="diplomNumb" placeholder="СК39090909"/>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-md mb-3">
+          <label for="endUniversityYear">Дата закінчення університету</label>
+          <input name="endUniversityYear" type="text" class="form-control" th:field="*{endUniversityYear}" id="endUniversityYear" placeholder="2222-11-22 рік-місяць-день"/>
+        </div>
+        <div class="col-md mb-3">
+          <label for="speciality">Кваліфікація людини</label>
+          <input name="speciality" type="text" class="form-control" th:field="*{speciality}" id="speciality" placeholder="Кваліфікація"/>
+        </div>
+        <div class="col-md mb-3">
+          <label>Форма навчання людини</label>
+          <br>
+          <select class="form-select" th:field="*{educationForm}">
+            <option value="Очна(денна)">Очна(денна)</option>
+            <option value="Очна(вечірня)">Очна(вечірня)</option>
+            <option value="Заочна">Заочна</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-md mb-3">
+          <label for="stateRegisterHomeAddress">Місце реєстрації проживання</label>
+          <input name="stateRegisterHomeAddress" type="text" class="form-control" th:field="*{stateRegisterHomeAddress}" id="stateRegisterHomeAddress" placeholder="м. **, вул. **, дім. **, кв. **."/>
+        </div>
+        <div class="col-md mb-3">
+          <label for="actualHomeAddress">Фактичне місце проживання</label>
+          <input name="actualHomeAddress" type="text" class="form-control" th:field="*{actualHomeAddress}" id="actualHomeAddress" placeholder="м. **, вул. **, дім. **, кв. **."/>
+        </div>
+        <div class="col-md mb-3">
+          <label for="workExperience">Досвід роботи</label>
+          <input name="workExperience" type="text" class="form-control" th:field="*{workExperience}" id="workExperience" placeholder="0 років"/>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-md mb-3">
+          <label for="position">Посада робітника</label>
+          <input name="position" type="text" class="form-control" th:field="*{position}" id="position" placeholder="Посада"/>
+        </div>
+        <div class="col-md mb-3">
+          <label>Статус робітника</label>
+          <br>
+          <select class="form-select" th:field="*{status}">
+            <option value="Прийнято">Прийнято</option>
+            <option value="Звільнено">Звільнено</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success">Змінити</button>
+    </form>
+  </div>
+  <div class="d-flex flex-column flex-shrink-0 p-3" style="width: 5px; background-color: #198754;"></div>
+</main>
+</body>
+<footer>
+</footer>
+</html>
