@@ -127,13 +127,13 @@
                 <td th:utext="${template.infoCompany}"></td>
                 <td th:utext="${template.locationCity}"></td>
                 <td th:utext="${template.jobDiscription}"></td>
-<!--                <td>-->
-<!--                    <form th:action="@{/print-template-pdf/{id}(id=${template.getId()})}" method="post">-->
-<!--                        <input type="hidden" name="nickname" th:value="${nickname}">-->
-<!--                        <input type="hidden" name="templateId" th:value="${template.getId()}">-->
-<!--                        <button type="submit" class="btn btn-primary">PDF</button>-->
-<!--                    </form>-->
-<!--                </td>-->
+                <td>
+                    <form th:action="@{/open-template}" method="post">
+                        <input type="hidden" name="nickname" th:value="${nickname}">
+                        <input type="hidden" name="templateId" th:value="${template.getId()}">
+                        <button type="submit" class="btn btn-primary">Перегляд</button>
+                    </form>
+                </td>
                 <td>
                     <form th:action="@{/edit-template/{id}(id=${template.getId()})}" method="post">
                         <input type="hidden" name="nickname" th:value="${nickname}">

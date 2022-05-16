@@ -1,18 +1,21 @@
 package javezProject.controllers;
 
+import com.lowagie.text.DocumentException;
 import javezProject.model.Department;
 import javezProject.model.Employee;
 import javezProject.model.Template;
 import javezProject.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.thymeleaf.TemplateEngine;
+
 import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.sql.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class AppController {
@@ -25,6 +28,8 @@ public class AppController {
     private EmployeeService employeeService;
     @Autowired
     private TemplateService templateService;
+    @Autowired
+    private PdfService pdfService;
 
 
 
@@ -442,11 +447,7 @@ public class AppController {
                                             @RequestParam("workingConditions2") String workingConditions2,
                                             @RequestParam("workingConditions3") String workingConditions3,
                                             @RequestParam("workingConditions4") String workingConditions4, @PathVariable String id) {
-//        @Validated
-//        BindingResult bindingResult
-//        bindingResult.hasErrors()
-//        Department oldDep = departmentService.getById(oldDepId);
-//        oldDep.deleteEmployee();
+
 
         Template template = new Template();
         template.setId(templateId);
@@ -490,6 +491,43 @@ public class AppController {
         modelAndView.addObject("nickname", nickname);
         return modelAndView;
     }
+
+    @PostMapping("/open-template")
+    public ModelAndView openTemplate(@RequestParam("nickname") String nickname,
+                                    @RequestParam("templateId") int templateId) {
+        Template template = templateService.getById(templateId);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("open-template");
+
+        modelAndView.addObject("nickname", nickname);
+        modelAndView.addObject("template", template);
+
+        return modelAndView;
+    }
+
+
+    @PostMapping("/print-template")
+    public void download(HttpServletResponse response,
+                         @RequestParam("templateId") int templateId) throws IOException, DocumentException {
+        Template template = templateService.getById(templateId);
+
+        String htmlInvoice = pdfService.buildHtmlFromTemplate(template);
+
+
+        ByteArrayOutputStream bos = pdfService.generatePdf(htmlInvoice);
+        byte[] pdfReport = bos.toByteArray();
+
+        String mimeType =  "application/pdf";
+        response.setContentType(mimeType);
+        response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", "template.pdf"));
+
+        response.setContentLength(pdfReport.length);
+
+        ByteArrayInputStream inStream = new ByteArrayInputStream( pdfReport);
+
+        FileCopyUtils.copy(inStream, response.getOutputStream());
+    }
+
 
 }
 

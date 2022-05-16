@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Template preview</title>
+</head>
+<body>
+<div style="padding: 10px">
+    <h1 th:text="${template.positionName}"></h1>
+    <p th:text="${template.salary} + ' грн'"></p>
+    <p th:text="${template.companyName}"></p>
+    <p th:text="${template.infoCompany}"></p>
+    <p th:text="${template.locationCity}"></p>
+    <p th:text="${template.jobDiscription}"></p>
+    <h2>Опис вакансії</h2>
+    <p>Вимоги</p>
+    <ul>
+        <li th:text="${template.requirements1}"></li>
+        <li th:if="${template.requirements2 != ''}" th:text="${template.requirements2}"></li>
+        <li th:if="${template.requirements3 != ''}" th:text="${template.requirements3}"></li>
+        <li th:if="${template.requirements4 != ''}" th:text="${template.requirements4}"></li>
+        <li th:if="${template.requirements5 != ''}" th:text="${template.requirements5}"></li>
+    </ul>
+    <p>Обовязки</p>
+    <ul>
+        <li th:text="${template.task1}"></li>
+        <li th:if="${template.task2 != ''}" th:text="${template.task2}"></li>
+        <li th:if="${template.task3 != ''}" th:text="${template.task3}"></li>
+        <li th:if="${template.task4 != ''}" th:text="${template.task4}"></li>
+        <li th:if="${template.task5 != ''}" th:text="${template.task5}"></li>
+    </ul>
+    <p>Умови праці</p>
+    <ul>
+        <li th:text="${template.workingConditions1}"></li>
+        <li th:if="${template.workingConditions2 != ''}" th:text="${template.workingConditions2}"></li>
+        <li th:if="${template.workingConditions3 != ''}" th:text="${template.workingConditions3}"></li>
+        <li th:if="${template.workingConditions4 != ''}" th:text="${template.workingConditions4}"></li>
+    </ul>
+    <form th:action="@{/home/all-templates}" method="post">
+        <input type="hidden" name="nickname" th:value="${nickname}">
+        <button type="submit" class="btn btn-primary">Повернутися назад</button>
+    </form>
+</div>
+</body>
+</html>
