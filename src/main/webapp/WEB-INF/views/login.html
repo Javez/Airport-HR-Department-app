@@ -19,7 +19,7 @@
             <div class="mb-md-5 mt-md-4 pb-5">
               <form action="/home" method="post">
                 <h2 class="fw-bold mb-2 text-uppercase">Аутентифікація</h2>
-                <p class="text-white-50 mb-5">Будь ласка введить вашу пошту та пароль!</p>
+                <p class="text-white-50 mb-5">Будь ласка введить ваш логін та пароль!</p>
                 <div class="form-outline form-white mb-4">
                   <input type="text" name="nickname" id="nickname" class="form-control form-control-lg" placeholder="Логін"/>
                   <label class="form-label" for="nickname">Login</label>
@@ -31,6 +31,9 @@
                 <p class="small mb-5 pb-lg-2"><a class="text-white-50">Забули пароль?</a></p>
                 <button class="btn btn-outline-light btn-lg px-5" type="submit">Підтвердити</button>
                 <p class="mb-0">Не має акаунту? Зв'яжіться з своїм керівником.</p>
+              </form>
+              <form th:action="@{/login-admin}" method="get" style="padding: 10px">
+                <button class="btn btn-danger btn-lg px-4" style="width: 200px" type="submit">Адмін панель</button>
               </form>
             </div>
           </div>

@@ -19,8 +19,8 @@ public class UserServiceImp implements UserService {
 
     @Override
     @Transactional
-    public List<User> allUsers(int page) {
-        return userDAO.allUsers(page);
+    public List<User> allUsers() {
+        return userDAO.allUsers();
     }
 
     @Override
@@ -64,5 +64,12 @@ public class UserServiceImp implements UserService {
     public boolean findUser(String nicknameOrEmail, String password) {
 
         return userDAO.findUser(nicknameOrEmail, password);
+    }
+
+    @Override
+    @Transactional
+    public String getUserRole(String nickname, String password) {
+
+        return userDAO.getUserRole(nickname, password);
     }
 }

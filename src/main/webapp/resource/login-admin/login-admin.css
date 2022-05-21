@@ -1,0 +1,12 @@
+body{
+    background: linear-gradient(to right,  rgb(221, 255, 100), rgb(37, 117, 252));
+}
+#login-panel{
+    border: 1px solid rgba(255, 177, 27, 0.82);
+}
+
+footer{
+
+    height: 300px;
+    background-color: black;
+}

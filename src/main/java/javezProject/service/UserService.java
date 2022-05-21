@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface UserService {
 
-    List<User> allUsers(int page);
+    List<User> allUsers();
     void add(User user);
     void delete(User user);
     void edit(User user);
@@ -13,5 +13,5 @@ public interface UserService {
     User getById(int id);
     int userCount();
     boolean findUser(String nicknameOrEmail, String password);
-
+    String getUserRole(String nickname, String password);
 }

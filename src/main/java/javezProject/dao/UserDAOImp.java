@@ -1,5 +1,6 @@
 package javezProject.dao;
 
+import javezProject.model.Template;
 import javezProject.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,9 +20,11 @@ public class UserDAOImp implements UserDAO {
 
 
     @Override
-    public List<User> allUsers(int page) {
+    public List<User> allUsers() {
+
         Session session = sessionFactory.getCurrentSession();
-        List<User> users = session.createQuery("select * from User", User.class).setFirstResult(10 * (page - 1)).setMaxResults(10).list();
+        String hql = "from User";
+        List<User> users = session.createQuery(hql, User.class).list();
         return users;
     }
 
@@ -81,6 +84,20 @@ public class UserDAOImp implements UserDAO {
             return false;
         }
 
+    }
+
+    @Override
+    public String getUserRole(String nickname, String password) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query;
+
+        query = session.createQuery("from User where nickname = :nickname and password = :password");
+        query.setParameter("nickname", nickname);
+        query.setParameter("password", password);
+        User user = (User) query.getSingleResult();
+        String role = user.getRole();
+
+        return role;
     }
 
 }

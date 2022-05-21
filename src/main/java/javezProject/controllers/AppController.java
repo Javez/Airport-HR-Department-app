@@ -4,13 +4,13 @@ import com.lowagie.text.DocumentException;
 import javezProject.model.Department;
 import javezProject.model.Employee;
 import javezProject.model.Template;
+import javezProject.model.User;
 import javezProject.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.thymeleaf.TemplateEngine;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -44,12 +44,153 @@ public class AppController {
         return "/login";
     }
 
+    @GetMapping("/login-admin")
+    public String authenticationAdmin() {
+        return "/login-admin";
+    }
+
+    @PostMapping("/home-admin")
+    public ModelAndView authenticationAdmin(@RequestParam("nickname") String nickname,
+                                            @RequestParam("password") String password) {
+
+        Boolean checkIfExist = userService.findUser(nickname, password);
+        String loginRole = userService.getUserRole(nickname, password);
+        String needRole = "admin";
+
+        if(checkIfExist == true && loginRole.equals(needRole)) {
+
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("/home-admin");
+            modelAndView.addObject("nickname", nickname);
+            return modelAndView;
+        }
+        else {
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("/login-admin");
+            return modelAndView;
+        }
+    }
+
+    @PostMapping("/home-admin/all")
+    public ModelAndView authenticationAdmin(@RequestParam("nickname") String nickname) {
+
+            List<User> userList = userService.allUsers();
+
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("/home-admin");
+            modelAndView.addObject("nickname", nickname);
+            modelAndView.addObject("userList", userList);
+            return modelAndView;
+    }
+
+    @PostMapping("/create-user")
+    public ModelAndView createUser(@RequestParam("nickname") String nickname) {
+        User user = new User();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("create-user");
+        modelAndView.addObject("nicknameState", nickname);
+        modelAndView.addObject("user", user);
+        return modelAndView;
+    }
+
+    @PostMapping("/create-user-confirm")
+    public ModelAndView confirmCreateUser(@RequestParam("nicknameState") String nicknameState,
+                                            @RequestParam("sname") String sname,
+                                          @RequestParam("fname") String fname,
+                                          @RequestParam("nickname") String nickname,
+                                          @RequestParam("email") String email,
+                                          @RequestParam("phoneNumber") String phoneNumber,
+                                          @RequestParam("homeAddress") String homeAddress,
+                                          @RequestParam("role") String role,
+                                          @RequestParam("password") String password) {
+
+        ModelAndView modelAndView = new ModelAndView();
+        User user = new User();
+        user.setFname(fname);
+        user.setSname(sname);
+        user.setNickname(nickname);
+        user.setEmail(email);
+        user.setPhoneNumber(phoneNumber);
+        user.setHomeAddress(homeAddress);
+        user.setRole(role);
+        user.setPassword(password);
+
+        userService.add(user);
+
+        modelAndView.setViewName("update-confirm-user");
+        modelAndView.addObject("nickname", nicknameState);
+        return modelAndView;
+
+    }
+
+    @PostMapping("/edit-user/{id}")
+    public ModelAndView editUser(@RequestParam("nickname") String nickname,
+                                     @RequestParam("userId") int userId) {
+        ModelAndView modelAndView = new ModelAndView();
+        User user = userService.getById(userId);
+        modelAndView.setViewName("/edit-user");
+        modelAndView.addObject("nicknameState", nickname);
+        modelAndView.addObject("userId", user.getId());
+        modelAndView.addObject("user", user);
+        return modelAndView;
+    }
+
+    @PostMapping("/edit-user-confirm/{id}")
+    public ModelAndView confirmEditEmployee(@RequestParam("nicknameState") String nicknameState,
+                                            @RequestParam("userId") int userId,
+                                            @RequestParam("sname") String sname,
+                                            @RequestParam("fname") String fname,
+                                            @RequestParam("nickname") String nickname,
+                                            @RequestParam("email") String email,
+                                            @RequestParam("phoneNumber") String phoneNumber,
+                                            @RequestParam("homeAddress") String homeAddress,
+                                            @RequestParam("role") String role,
+                                            @RequestParam("password") String password) {
+//        @Validated
+//        BindingResult bindingResult
+//        bindingResult.hasErrors()
+//        Department oldDep = departmentService.getById(oldDepId);
+//        oldDep.deleteEmployee(employeeId);
+
+        User user = new User();
+        user.setId(userId);
+        user.setFname(fname);
+        user.setSname(sname);
+        user.setNickname(nickname);
+        user.setEmail(email);
+        user.setPhoneNumber(phoneNumber);
+        user.setHomeAddress(homeAddress);
+        user.setRole(role);
+        user.setPassword(password);
+
+        userService.edit(user);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("update-confirm-user");
+        modelAndView.addObject("nickname", nicknameState);
+        return modelAndView;
+    }
+
+    @PostMapping("/delete-user/{id}")
+    public ModelAndView deleteUser(@RequestParam("nickname") String nickname,
+                                       @RequestParam("userId") int userId) {
+
+        userService.delete(userService.getById(userId));
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("update-confirm-user");
+        modelAndView.addObject("nickname", nickname);
+        return modelAndView;
+    }
+
+
     @PostMapping("/home")
     public ModelAndView authentication(@RequestParam("nickname") String nickname,
                                        @RequestParam("password") String password) {
 
         Boolean checkIfExist = userService.findUser(nickname, password);
-        if(checkIfExist == true) {
+        String loginRole = userService.getUserRole(nickname, password);
+        String needRole = "user";
+
+        if(checkIfExist == true && loginRole.equals(needRole)) {
 
             String title = "Оберіть відділ для отримання даних";
             List<Department> depList = departmentService.allDepartments();
@@ -164,7 +305,7 @@ public class AppController {
 
         employeeService.add(employee);
 
-        modelAndView.setViewName("update-confirm");
+        modelAndView.setViewName("update-confirm-employee");
         modelAndView.addObject("nickname", nickname);
         return modelAndView;
 
@@ -240,7 +381,7 @@ public class AppController {
         employee.setStatus(status);
         employeeService.edit(employee);
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("update-confirm");
+        modelAndView.setViewName("update-confirm-employee");
         modelAndView.addObject("nickname", nickname);
         return modelAndView;
     }
@@ -251,7 +392,7 @@ public class AppController {
 
         employeeService.delete(employeeService.getById(employeeId));
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("update-confirm");
+        modelAndView.setViewName("update-confirm-employee");
         modelAndView.addObject("nickname", nickname);
         return modelAndView;
     }
@@ -279,7 +420,7 @@ public class AppController {
         department.setDiscription(discription);
 
         departmentService.add(department);
-        modelAndView.setViewName("update-confirm");
+        modelAndView.setViewName("update-confirm-department");
         modelAndView.addObject("nickname", nickname);
         return modelAndView;
 
@@ -401,7 +542,7 @@ public class AppController {
 
         templateService.add(template);
 
-        modelAndView.setViewName("update-confirm");
+        modelAndView.setViewName("update-confirm-template");
         modelAndView.addObject("nickname", nickname);
         return modelAndView;
     }
@@ -476,7 +617,7 @@ public class AppController {
         template.setWorkingConditions4(workingConditions4);
         templateService.edit(template);
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("update-confirm");
+        modelAndView.setViewName("update-confirm-template");
         modelAndView.addObject("nickname", nickname);
         return modelAndView;
     }
@@ -487,7 +628,7 @@ public class AppController {
 
         templateService.delete(templateService.getById(templateId));
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("update-confirm");
+        modelAndView.setViewName("update-confirm-tempalte");
         modelAndView.addObject("nickname", nickname);
         return modelAndView;
     }
